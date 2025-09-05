@@ -1,0 +1,26 @@
+.TreeRepoMain{
+    background-color: antiquewhite;
+    padding: 40px;
+}
+
+.headingTexts p{
+    margin-top: 20px;
+    line-height: 2;
+}
+
+.contentArea{
+    background-color: aquamarine;
+    margin-top: 40px;
+}
+
+.inputs{
+    width: 80%;
+}
+
+.heightEstimateArea{
+    width: 80%;
+}
+
+.uploadedImgPreview{
+    width: 30%;
+}

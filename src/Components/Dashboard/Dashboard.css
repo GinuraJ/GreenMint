@@ -1,0 +1,50 @@
+.main{
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+}
+
+.sideBar{
+    background-color: aqua;
+    display: grid;
+    grid-template-rows: 1fr 10fr;
+}
+
+.sideBarContent{
+    padding: 20px;
+}
+
+.contentBar{
+    background-color: rgb(50, 158, 77);
+    display: grid;
+    grid-template-rows: 1fr 10fr;
+}
+
+.contentNav{
+    background-color: blueviolet;
+}
+
+.sideBarNav{
+    background-color: brown;
+}
+
+.content{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+
+    width: 90%;
+    height: 95%;
+    margin: auto;
+}
+
+
+
+
+
+
+
+
+
+
+

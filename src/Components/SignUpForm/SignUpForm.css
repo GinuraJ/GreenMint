@@ -1,0 +1,13 @@
+.wrapperSignUp{
+    display: flex;                  /* enable flex */
+    justify-content: center;        /* horizontal centering */
+    align-items: center;            /* vertical centering */
+    height: 100vh;              
+    background-size: cover;
+    margin: 0 auto;   
+}
+
+.wrapperSignUpForm{
+    background-color: aqua;
+    height: max-content;
+}
