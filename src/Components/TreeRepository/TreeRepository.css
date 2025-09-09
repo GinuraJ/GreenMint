@@ -1,6 +1,7 @@
 .TreeRepoMain{
-    background-color: antiquewhite;
-    padding: 40px;
+    display: grid;
+    grid-template-columns: 3.5fr 1.5fr;
+    gap: 20px;
 }
 
 .headingTexts p{
@@ -14,13 +15,24 @@
 }
 
 .inputs{
-    width: 80%;
+    /* width: 80%; */
 }
 
 .heightEstimateArea{
-    width: 80%;
+    /* width: 80%; */
 }
 
 .uploadedImgPreview{
     width: 30%;
+}
+
+.treeRepoLeft{
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.treeRepoRight{
+    background-color: #ffffff;
+    border-radius: 20px;
 }

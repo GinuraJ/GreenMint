@@ -2,30 +2,55 @@
     height: 100vh;
     display: grid;
     grid-template-columns: 1fr 4fr;
+    overflow-y: auto;
 }
 
 .sideBar{
-    background-color: aqua;
+    background-color: #edf5f7;
     display: grid;
     grid-template-rows: 1fr 10fr;
 }
 
 .sideBarContent{
     padding: 20px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    border-radius: 0 0 0 20px;
 }
 
 .contentBar{
-    background-color: rgb(50, 158, 77);
+    background-color: #edf5f7;
     display: grid;
     grid-template-rows: 1fr 10fr;
 }
 
 .contentNav{
-    background-color: blueviolet;
+    background-color: #edf5f7;
+}
+
+.contentNavContent{
+    background-color: #ffffff;
+    height: 90%;
+    width: 100%;
+    margin-top: 20px;
 }
 
 .sideBarNav{
-    background-color: brown;
+    background-color: #edf5f7;
+}
+
+.sideBarNavContent{
+    margin-left: 20px;
+    margin-top: 20px;
+    background-color: #ffffff;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+}
+
+.sideBarBtnGroup{
+    margin-top: 20px;
 }
 
 .content{
@@ -34,8 +59,8 @@
     display: flex;
 
     width: 90%;
-    height: 95%;
-    margin: auto;
+    margin: 20px auto;
+    margin-top: 35px;
 }
 
 
