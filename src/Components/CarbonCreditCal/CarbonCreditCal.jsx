@@ -3,30 +3,15 @@ import "./CarbonCreditCal.css"
 
 export default function CarbonCreditCalculation(){
 
-    const [notProceedTrees, setTrees] = useState([]);   // store list from API
+    const [trees, setTrees] = useState([]);   // store list from API
     const [loading, setLoading] = useState(true); // for loading
     const [error, setError] = useState(null);     // for errors
 
     const [selectedTreeId, setSelectedTreeId] = useState("");
     const [treeDetails, setTreeDetails] = useState(null);
 
+    const [treeType, setTreeType] = useState("ALL");
 
-    // Get and set not proceed trees to dropdown
-    useEffect(() => {
-    fetch("http://localhost:8080/api/trees/find/P")  
-        .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch trees");
-            return res.json();
-        })
-        .then((data) => {
-            setTrees(data); 
-            setLoading(false);
-        })
-        .catch((err) => {
-            setError(err.message);
-            setLoading(false);
-        });
-    }, []);
 
     useEffect(() => {
         if (!selectedTreeId) {
@@ -43,75 +28,116 @@ export default function CarbonCreditCalculation(){
             console.log(treeDetails);
     }, [selectedTreeId]);
 
+    useEffect(() =>{
+        let url = "";
+
+        if (treeType === "ALL") {
+            url = "http://localhost:8080/api/trees";
+        } else {
+            url = `http://localhost:8080/api/trees/find/${treeType}`;
+        }
+
+        setLoading(true);
+
+        fetch(url)
+            .then((res) => {
+                if (!res.ok) throw new Error("Failed to fetch trees");
+                return res.json();
+            })
+            .then((data) => {
+                setTrees(data);
+                setLoading(false);
+                console.log("Fetched data:", data);
+                console.log("trees : ", trees);
+            })
+            .catch((err) => {
+                setError(err.message);
+                setLoading(false);
+            });
+    }, [treeType]);
+
+
     return(
         <div className="CarbonMain w-full h-full">
             <h1>Generate Carbon Credit Estimate</h1>
 
-            <label for="select" class="block text-sm/6 font-medium text-gray-900 mt-7">Tree Species</label>
-            <div class="mt-2">
-                <div class="flex items-center rounded-md bg-white pl-3 
-                            outline outline-1 -outline-offset-1 outline-gray-300 
-                            focus-within:outline-2 
-                            focus-within:-outline-offset-2 
-                            focus-within:outline-indigo-600">
-                
-                    <select id="unit" name="unit" 
-                    value={selectedTreeId}
-                    onChange={(e) => setSelectedTreeId(e.target.value)}
-                    class="block w-full appearance-none rounded-md py-1.5 pr-8 pl-1 
-                        text-base text-gray-900 placeholder:text-gray-400 
-                        focus:outline-none sm:text-sm/6">
+            <label for="select" class="block text-sm/6 font-medium text-gray-900 mt-7">Tree Type</label>
 
-                        <option value="-">Select tree</option>
-                        <option value="all">All</option>
+            <button 
+            type="button"
+            onClick={() => setTreeType("ALL")} 
+            class="rounded-md bg-red-400 px-4 py-2 
+                    text-white text-sm font-medium shadow-sm 
+                    outline outline-1 outline-gray-300 -outline-offset-1
+                    hover:bg-indigo-700 
+                    focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2">All
+            </button>
 
-                        {/* ✅ Loading / Error states */}
-                        {loading && <option disabled>Loading...</option>}
-                        {error && <option disabled>{error}</option>}
+            <button 
+            type="button"
+            onClick={() => setTreeType("P")} 
+            class="rounded-md bg-green-600 px-4 py-2 
+                    text-white text-sm font-medium shadow-sm 
+                    outline outline-1 outline-gray-300 -outline-offset-1
+                    hover:bg-indigo-700 
+                    focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2">
+            Pending
+            </button>
 
-                        {/* ✅ Map trees from API */}
-                        {!loading && !error && notProceedTrees.map((tree) => 
-                        (<option key={tree.id} value={tree.treeId}>{tree.name}</option>)
-                        )}
-                    </select>
+            <button 
+            type="button"
+            onClick={() => setTreeType("D")} 
+            class="rounded-md bg-blue-600 px-4 py-2 
+                    text-white text-sm font-medium shadow-sm 
+                    outline outline-1 outline-gray-300 -outline-offset-1
+                    hover:bg-indigo-700 
+                    focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2">
+            Proced
+            </button>
 
-                    <svg viewBox="0 0 16 16" fill="currentColor" class="pointer-events-none -ml-7 size-5 text-gray-500 sm:size-4">
-                        <path fill-rule="evenodd" clip-rule="evenodd" 
-                        d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" />
-                    </svg>
-                </div>
-            </div>
-
-            {treeDetails && (
-            <table className="mt-4 w-full border border-gray-300 rounded-md text-left">
+            <table className="min-w-full border border-gray-300">
+                <thead className="bg-gray-200">
+                    <tr>
+                        {/* <th className="px-4 py-2 border">ID</th> */}
+                        <th className="px-4 py-2 border">Name</th>
+                        <th className="px-4 py-2 border">Status</th>
+                        <th className="px-4 py-2 border">Age</th>
+                        <th className="px-4 py-2 border">Diameter</th>
+                        <th className="px-4 py-2 border">GeoLocation</th>
+                        <th className="px-4 py-2 border">Species</th>
+                        <th className="px-4 py-2 border">Action</th>
+                    </tr>
+                </thead>
                 <tbody>
-                    <tr className="border-b border-gray-200">
-                        <th className="px-4 py-2">Name</th>
-                        <td className="px-4 py-2">{treeDetails.name}</td>
-                    </tr>
-                    <tr className="border-b border-gray-200">
-                        <th className="px-4 py-2">Tree species</th>
-                        <td className="px-4 py-2">{treeDetails.species}</td>
-                    </tr>
-                    <tr className="border-b border-gray-200">
-                        <th className="px-4 py-2">Height</th>
-                        <td className="px-4 py-2">{treeDetails.height} cm</td>
-                    </tr>
-                    <tr className="border-b border-gray-200">
-                        <th className="px-4 py-2">Age</th>
-                        <td className="px-4 py-2">{treeDetails.age} years</td>
-                    </tr>
-                    <tr>
-                        <th className="px-4 py-2">Diameter</th>
-                        <td className="px-4 py-2">{treeDetails.diameter} cm</td>
-                    </tr>
-                    <tr>
-                        <th className="px-4 py-2">Geo Location</th>
-                        <td className="px-4 py-2">{treeDetails.geoLocation} cm</td>
-                    </tr>
+                    {trees.length > 0 ? (
+                        trees.map((tree) =>(
+                            <tr key={tree.treeId}>
+                                {/* <td className="px-4 py-2 border">{tree.treeId}</td> */}
+                                <td className="px-4 py-2 border">{tree.name}</td>
+                                <td className="px-4 py-2 border">{tree.status}</td>
+                                <td className="px-4 py-2 border">{tree.age}</td>
+                                <td className="px-4 py-2 border">{tree.diameter}</td>
+                                <td className="px-4 py-2 border">{tree.height}</td>
+                                <td className="px-4 py-2 border">{tree.geoLocation}</td>
+                                <td className="px-4 py-2 border text-center">
+                                    <button
+                                    className="bg-indigo-600 text-white px-3 py-1 rounded-md hover:bg-indigo-800"
+                                    onClick={() => console.log("Clicked tree:", tree)}
+                                    >
+                                    View
+                                    </button>
+                                </td>
+                            </tr>
+                        ))
+                    ): (
+                        <tr>
+                            <td className="px-4 py-2 border text-center" colSpan={5}>
+                                {loading ? "Loading..." : "No trees found"}
+                            </td>
+                        </tr>
+                    )}
                 </tbody>
             </table>
-            )}
 
         </div>
     )
