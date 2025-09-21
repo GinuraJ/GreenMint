@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./CarbonCreditCal.css"
 
+
 export default function CarbonCreditCalculation(){
 
     const [trees, setTrees] = useState([]);   // store list from API
@@ -98,7 +99,6 @@ export default function CarbonCreditCalculation(){
             <table className="min-w-full border border-gray-300">
                 <thead className="bg-gray-200">
                     <tr>
-                        {/* <th className="px-4 py-2 border">ID</th> */}
                         <th className="px-4 py-2 border">Name</th>
                         <th className="px-4 py-2 border">Status</th>
                         <th className="px-4 py-2 border">Age</th>
@@ -108,11 +108,11 @@ export default function CarbonCreditCalculation(){
                         <th className="px-4 py-2 border">Action</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     {trees.length > 0 ? (
                         trees.map((tree) =>(
                             <tr key={tree.treeId}>
-                                {/* <td className="px-4 py-2 border">{tree.treeId}</td> */}
                                 <td className="px-4 py-2 border">{tree.name}</td>
                                 <td className="px-4 py-2 border">{tree.status}</td>
                                 <td className="px-4 py-2 border">{tree.age}</td>
@@ -138,7 +138,6 @@ export default function CarbonCreditCalculation(){
                     )}
                 </tbody>
             </table>
-
         </div>
     )
 }
