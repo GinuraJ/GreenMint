@@ -1,41 +1,27 @@
+import MainLayout from "../Layout/MainLayout"
+import TabButton from "../Component/TabButton"
 import { useEffect, useState } from "react";
-import "./CarbonCreditCal.css"
+import { useNavigate } from "react-router-dom";
 
 
-export default function CarbonCreditCalculation(){
+export default function TreeRepository(){
 
+    const navigate = useNavigate();
     const [trees, setTrees] = useState([]);   // store list from API
     const [loading, setLoading] = useState(true); // for loading
     const [error, setError] = useState(null);     // for errors
-
-    const [selectedTreeId, setSelectedTreeId] = useState("");
-    const [treeDetails, setTreeDetails] = useState(null);
-
-    const [treeType, setTreeType] = useState("ALL");
-
-
-    useEffect(() => {
-        if (!selectedTreeId) {
-            setTreeDetails(null);
-            return;
-        }
-        console.log(selectedTreeId);
-
-        fetch(`http://localhost:8080/api/trees/find/id/${selectedTreeId}`)
-            .then((res) => res.json())
-            .then((data) => setTreeDetails(data))
-            .catch((err) => console.error(err));
-
-            console.log(treeDetails);
-    }, [selectedTreeId]);
+    const [activeTreeType, setActiveTab] = useState("All");
+    const tabs = ["All", "Pending", "Proceed"];
 
     useEffect(() =>{
         let url = "";
 
-        if (treeType === "ALL") {
+        if (activeTreeType === "All") {
             url = "http://localhost:8080/api/trees";
-        } else {
-            url = `http://localhost:8080/api/trees/find/${treeType}`;
+        } else if (activeTreeType === "Pending"){
+            url = "http://localhost:8080/api/trees/find/P";
+        } else if(activeTreeType === "Proceed"){
+            url = "http://localhost:8080/api/trees/find/D";
         }
 
         setLoading(true);
@@ -55,47 +41,25 @@ export default function CarbonCreditCalculation(){
                 setError(err.message);
                 setLoading(false);
             });
-    }, [treeType]);
-
+    }, [activeTreeType]);
 
     return(
-        <div className="CarbonMain w-full h-full">
-            <h1>Generate Carbon Credit Estimate</h1>
+        <MainLayout>
 
-            <label for="select" class="block text-sm/6 font-medium text-gray-900 mt-7">Tree Type</label>
+            <h1>Tree Repo</h1>
+            
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iure, a magnam dicta voluptates velit minus nesciunt. Consequatur beatae corrupti incidunt numquam, recusandae doloremque illo odit vel consequuntur, minus explicabo magnam.</p>
 
-            <button 
-            type="button"
-            onClick={() => setTreeType("ALL")} 
-            class="rounded-md bg-red-400 px-4 py-2 
-                    text-white text-sm font-medium shadow-sm 
-                    outline outline-1 outline-gray-300 -outline-offset-1
-                    hover:bg-indigo-700 
-                    focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2">All
-            </button>
-
-            <button 
-            type="button"
-            onClick={() => setTreeType("P")} 
-            class="rounded-md bg-green-600 px-4 py-2 
-                    text-white text-sm font-medium shadow-sm 
-                    outline outline-1 outline-gray-300 -outline-offset-1
-                    hover:bg-indigo-700 
-                    focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2">
-            Pending
-            </button>
-
-            <button 
-            type="button"
-            onClick={() => setTreeType("D")} 
-            class="rounded-md bg-blue-600 px-4 py-2 
-                    text-white text-sm font-medium shadow-sm 
-                    outline outline-1 outline-gray-300 -outline-offset-1
-                    hover:bg-indigo-700 
-                    focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2">
-            Proced
-            </button>
-
+            <div className="flex">
+            {tabs.map((tab) => (
+                <TabButton
+                key={tab}
+                label={tab}
+                active={activeTreeType === tab}
+                onClick={() => setActiveTab(tab)}
+                />
+            ))}
+            </div>
 
             <table className="min-w-full border border-gray-300">
                 <thead className="bg-gray-200">
@@ -123,7 +87,7 @@ export default function CarbonCreditCalculation(){
                                 <td className="px-4 py-2 border text-center">
                                     <button
                                     className="bg-indigo-600 text-white px-3 py-1 rounded-md hover:bg-indigo-800"
-                                    onClick= {() => console.log("Clicked tree:", tree)}
+                                    onClick={() => navigate(`/convertToCredit/${tree.treeId}`)}
                                     >
                                     View
                                     </button>
@@ -140,6 +104,6 @@ export default function CarbonCreditCalculation(){
                 </tbody>
             </table>
 
-        </div>
+        </MainLayout>
     )
 }

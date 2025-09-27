@@ -76,7 +76,7 @@ export default function TreeRepo(){
     };
 
     return(
-        
+    
             <div className="TreeRepoMain w-full h-full">
                 <div className="treeRepoLeft">
                     <div className="headingTexts">
@@ -140,26 +140,14 @@ export default function TreeRepo(){
                                                 has-[input:focus]:outline-2 
                                                 has-[input:focus]:-outline-offset-2 
                                                 has-[input:focus]:outline-indigo-600">
-                                            {/* <div class="shrink-0 text-base text-gray-500 select-none sm:text-sm/6">$</div> */}
+            
                                                 <input id="age" type="text" name="price" placeholder="00" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"
                                                 value={age} onChange={(e) => setAge(e.target.value)} />
                                             </div>
                                         </div>
 
 
-                                        <label for="geo" class="block text-sm/6 font-medium text-gray-900 mt-7">Geo Location</label>
-                                        <div class="mt-2">
-                                            <div class="flex items-center rounded-md bg-white pl-3 
-                                                outline outline-1 
-                                                -outline-offset-1 
-                                                outline-gray-300 
-                                                has-[input:focus]:outline-2 
-                                                has-[input:focus]:-outline-offset-2 
-                                                has-[input:focus]:outline-indigo-600">
-                                                <input id="geo" type="text" name="price" placeholder="00" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"
-                                                value={geoLocation} onChange={(e) => setGeoLocation(e.target.value)} />
-                                            </div>
-                                        </div>
+
 
                                     </div>
                                 </div>
@@ -235,39 +223,19 @@ export default function TreeRepo(){
                                         </button>
                                     </div>
 
-                                    <label for="price" class="block text-sm/6 font-medium text-gray-900 mt-7">Upload a tree image</label>
-
-                                    <div className="mt-2">
-                                        <label htmlFor="file-upload" 
-                                                className="flex items-center justify-between rounded-md bg-white pl-3 pr-3 py-2
-                                                            outline outline-1 -outline-offset-1 outline-gray-300
-                                                            focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600
-                                                            cursor-pointer">
-                                            <span className="text-base text-gray-900 sm:text-sm/6">Upload image</span>
-                                            <input
-                                            id="file-upload"
-                                            type="file"
-                                            accept="image/*"
-                                            className="hidden"
-                                            onChange={handleImageChange}
-                                            />
-                                            <svg className="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fillRule="evenodd" clipRule="evenodd" 
-                                                    d="M3 16.5A1.5 1.5 0 0 0 4.5 18h11a1.5 1.5 0 0 0 1.5-1.5V10a.5.5 0 0 0-1 0v6.5a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5V10a.5.5 0 0 0-1 0v6.5zM10 3a.5.5 0 0 1 .5.5v8.793l2.146-2.147a.5.5 0 1 1 .708.708l-3 3a.498.498 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L9.5 12.293V3.5A.5.5 0 0 1 10 3z" />
-                                            </svg>
-                                        </label>
-
-                                        {/* Small preview area */}
-                                        {imagePreview && (
-                                            <div className="uploadedImgPreview mt-2 border rounded-md overflow-hidden">
-                                            <img
-                                                src={imagePreview}
-                                                alt="Preview"
-                                                className="w-full h-full object-cover"
-                                            />
+                                    <label for="geo" class="block text-sm/6 font-medium text-gray-900 mt-7">Geo Location</label>
+                                        <div class="mt-2">
+                                            <div class="flex items-center rounded-md bg-white pl-3 
+                                                outline outline-1 
+                                                -outline-offset-1 
+                                                outline-gray-300 
+                                                has-[input:focus]:outline-2 
+                                                has-[input:focus]:-outline-offset-2 
+                                                has-[input:focus]:outline-indigo-600">
+                                                <input id="geo" type="text" name="price" placeholder="00" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"
+                                                value={geoLocation} onChange={(e) => setGeoLocation(e.target.value)} />
                                             </div>
-                                        )}
-                                    </div>
+                                        </div>
                                 </div>
                             </div>
 

@@ -2,28 +2,22 @@
 import React, { useState } from "react";
 import "./Dashboard.css";
 
-import QuickLink from '../QuickLink/QuickLink';
 import CarbonCreditCal from '../CarbonCreditCal/CarbonCreditCal'
 import TreeRepositoary from '../TreeRepository/TreeRepository'
-import Welcome from '../Welcome/Welcome'
+import Calculationview from '../CalculationView/CalculationView'
 
 export default function Dashboard() {
 
   const [activeComponent, setActiveComponent] = useState("home");
 
-  // Helper to render the component
   const renderContent = () => {
     switch (activeComponent) {
-      case "quicklink":
-        return <QuickLink />;
       case "carbon":
         return <CarbonCreditCal />;
       case "tree":
         return <TreeRepositoary />;
-      case "home":
-        return <Welcome/>;
-      default:
-        return <QuickLink />;
+      case "CalView":
+        return <Calculationview/>;
     }
   };
 

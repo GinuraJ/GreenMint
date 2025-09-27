@@ -26,7 +26,7 @@ export const LoginForm = () => {
       const user = response.data.password;
 
       if(user === formData.password){
-        navigate("/dashboard");
+        navigate("/home");
       }else{
         toast.error("Invalid credentials");
         console.log("Wrong password")
