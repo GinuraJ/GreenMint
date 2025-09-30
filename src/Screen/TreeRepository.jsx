@@ -11,7 +11,7 @@ export default function TreeRepository(){
     const [loading, setLoading] = useState(true); // for loading
     const [error, setError] = useState(null);     // for errors
     const [activeTreeType, setActiveTab] = useState("All");
-    const tabs = ["All", "Pending", "Proceed"];
+    const tabs = ["All", "Pending", "Approved","Proceed"];
 
     useEffect(() =>{
         let url = "";
@@ -21,7 +21,9 @@ export default function TreeRepository(){
         } else if (activeTreeType === "Pending"){
             url = "http://localhost:8080/api/trees/find/P";
         } else if(activeTreeType === "Proceed"){
-            url = "http://localhost:8080/api/trees/find/D";
+            url = "http://localhost:8080/api/trees/find/E";
+        } else{
+            url = "http://localhost:8080/api/trees/find/A";
         }
 
         setLoading(true);

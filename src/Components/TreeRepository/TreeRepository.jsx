@@ -38,8 +38,6 @@ export default function TreeRepo(){
             formData.append("geoLocation", geoLocation);
             formData.append("status", "P");
             formData.append("enterUser", "admin"); 
-            // formData.append("image", imageFile);
-
 
             if (imageFile) {
                 formData.append("image", imageFile);

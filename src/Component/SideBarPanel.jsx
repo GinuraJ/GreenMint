@@ -27,6 +27,17 @@ export default function SideBar(){
                 🌳 Tree Repository
             </button>
 
+            <button 
+                className="mb-3 w-full text-left px-4 py-2 bg-white rounded hover:bg-green-100 transition"
+                onClick={() => navigate("/wallet")}>
+                💳 View My Wallet
+            </button>
+
+            <button 
+                className="mb-3 w-full text-left px-4 py-2 bg-white rounded hover:bg-green-100 transition"
+                onClick={() => navigate("/orders")}>
+                📊 Orders
+            </button>
         </div>
     )
 }

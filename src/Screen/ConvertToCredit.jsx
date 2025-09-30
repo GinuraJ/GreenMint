@@ -105,15 +105,17 @@ export default function ConvertToCredit() {
                         <p><strong>YearlyCarbonCredit:</strong> {calculationResult.YearlyCarbonCredit}</p>
                     </div>
 
-                    {tree.status === "P" ? 
-                    (
+                    {tree.status === "A" ? (
                         <button className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-200">
-                        Add to wallet
+                            💰 Add to wallet
                         </button>
-                    ) : 
-                    (
+                    ) : tree.status === "E" ? (
                         <p className="bg-gray-200 text-gray-600 font-semibold py-2 px-4 rounded-lg shadow-inner cursor-not-allowed inline-block">
-                        ✅ Already added
+                            ✅ Already added
+                        </p>
+                    ) : (
+                        <p className="bg-yellow-100 text-yellow-700 font-semibold py-2 px-4 rounded-lg shadow-sm inline-block">
+                            ⏳ Pending Approval
                         </p>
                     )}
 
