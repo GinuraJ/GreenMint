@@ -6,7 +6,6 @@ export default function SaveTree(){
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-
     const [name, setName] = useState("");
     const [species, setSpecies] = useState("");
     const [age, setAge] = useState("");
@@ -84,25 +83,22 @@ export default function SaveTree(){
         <MainLayout>
 
             <h1>Save Tree</h1>
-
+            
             <form className="treeRepoLeft" onSubmit={handleSubmit}>
                 <div className="inputArea grid grid-cols-3">
                     <div>
-                    <input type="file" accept="image/*" onChange={handleImageChange} />
+                        <input type="file" accept="image/*" onChange={handleImageChange} />
 
-                    {imagePreview && (
-                    <img
-                        src={imagePreview}
-                        alt="Preview"
-                        className="w-40 h-40 object-cover mt-4 border"
-                    />
-                    )}
+                        {imagePreview && (
+                        <img
+                            src={imagePreview}
+                            alt="Preview"
+                            className="w-40 h-40 object-cover mt-4 border"
+                        />
+                        )}
 
-                        <button
-                        // onClick={handleProceed}
-                        className="mt-4 px-4 py-2 bg-green-600 text-white rounded"
-                        >
-                        Proceed
+                        <button className="mt-4 px-4 py-2 bg-green-600 text-white rounded">
+                            Proceed
                         </button>
                     </div>
                     <div className="inputsArea">
