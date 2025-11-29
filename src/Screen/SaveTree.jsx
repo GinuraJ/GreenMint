@@ -15,6 +15,10 @@ export default function SaveTree(){
     const [imageFile, setImageFile] = useState(null);
     const [imagePreview, setImagePreview] = useState(null);
 
+    const [treeActualHeight, setTreeActualHeight] = useState("");
+    const [isHeightLocked, setIsHeightLocked] = useState(false);
+
+
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -22,6 +26,12 @@ export default function SaveTree(){
             setImagePreview(URL.createObjectURL(file));
         }
     };
+
+    function getTreeActualHeight(treePixelHeight, humanPixelHeight, humanActualHeightCm) {
+        const treeActualHeightCm = (treePixelHeight / humanPixelHeight) * humanActualHeightCm;
+        return treeActualHeightCm; // centimeters
+    }
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -44,7 +54,7 @@ export default function SaveTree(){
                 console.log("Not file");
             }
 
-            console.log("🚀 Sending form data:");
+            console.log("Sending form data:");
             for (let [key, value] of formData.entries()) {
                 console.log(key, value);
             }
@@ -79,6 +89,86 @@ export default function SaveTree(){
         }
     };
 
+    const handleProceed = async () => {
+        if (!imageFile) {
+            alert("Please select an image first");
+            return;
+        }
+    
+        try {
+            const formData = new FormData();
+            formData.append("file", imageFile);
+    
+            console.log("Sending image to YOLO API...");
+    
+            const response = await fetch("http://64.227.128.213:8000/detect", {
+                method: "POST",
+                body: formData
+            });
+    
+            console.log("Response:", response);
+
+            const data = await response.json();
+            console.log("YOLO API response:", data);
+    
+            if (response.ok) {
+                alert("Detection success:\n" + JSON.stringify(data, null, 2));
+
+                // Store data in local variables
+                const treePixelHeights = data.tree_pixel_heights || [];
+                const humanPixelHeights = data.human_pixel_heights || [];
+                const treeCount = data.tree_count || 0;
+                const humanCount = data.human_count || 0;
+                const treeBottomPixels = data.tree_bottom_pixels || [];
+                const humanBottomPixels = data.human_bottom_pixels || [];
+
+                // Example: log them
+                console.log("Tree pixel heights:", treePixelHeights);
+                console.log("Human pixel heights:", humanPixelHeights);
+                console.log("Tree count:", treeCount);
+                console.log("Human count:", humanCount);
+                console.log("Tree bottom pixels:", treeBottomPixels);
+                console.log("Human bottom pixels:", humanBottomPixels);
+
+                if(treeCount == 1){
+                    if(humanCount == 1){
+
+                        const treeActualHeight = getTreeActualHeight(
+                            treePixelHeights[0],
+                            humanPixelHeights[0],
+                            150
+                        );
+                        
+                        setTreeActualHeight(treeActualHeight);
+                        
+                        setHeight(treeActualHeight.toFixed(2));
+                        
+                        setIsHeightLocked(true);
+
+
+                        
+                    }else if(humanCount > 1){
+                        alert("More than one reference object are recognized by model");
+                    }else{
+                        alert("No reference object found");
+                    }
+                }else if(treeCount > 1){
+                    alert("More than one trees are recognized by model. Please use a different angle");
+                }else{
+                    alert("No tree found. Please upload a tree along with you");
+                }
+    
+            } else {
+                alert("Detection failed: " + data.message);
+            }
+    
+        } catch (error) {
+            console.error("Error calling YOLO API:", error);
+            alert("API Error: " + error);
+        }
+    };
+    
+
     return(
         <MainLayout>
 
@@ -97,9 +187,14 @@ export default function SaveTree(){
                         />
                         )}
 
-                        <button className="mt-4 px-4 py-2 bg-green-600 text-white rounded">
+                        <button 
+                            type="button"
+                            onClick={handleProceed}
+                            className="mt-4 px-4 py-2 bg-green-600 text-white rounded"
+                        >
                             Proceed
                         </button>
+
                     </div>
                     <div className="inputsArea">
                         <div className="inputs">
@@ -209,7 +304,11 @@ export default function SaveTree(){
                                 
                             </div>
                                 <input id="height" type="text" name="price" placeholder="00" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"
-                                value={height} onChange={(e) => setHeight(e.target.value)} />
+                                disabled={isHeightLocked}
+                                value={height} 
+                                onChange={(e) => setHeight(e.target.value)
+                                    
+                                } />
                                 <div class="grid shrink-0 grid-cols-1 focus-within:relative">
                                     <select id="currency" name="currency" aria-label="Currency" class="col-start-1 row-start-1 w-full appearance-none rounded-md py-1.5 pr-7 pl-3 text-base text-gray-500 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                                         <option>cm</option>

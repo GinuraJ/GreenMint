@@ -9,7 +9,7 @@ export default function Wallet() {
             <h1>My Wallet</h1>
 
             <WalletCardLayout>
-                <WalletCard icon={"💰"} lebel={"Cash Wallet"} amount={"$ 400.00"} des={"Available Balance"}/>
+                <WalletCard icon={"💰"} lebel={"Cash Wallet"} amount={"LKR 400.00"} des={"Available Balance"}/>
                 <WalletCard icon={"🍀"} lebel={"Carbon Credit Wallet"} amount={"12"} des={"Available Balance"}/>
                 <WalletCard icon={"📉"} lebel={"Test"} amount={"..."} des={"Available Balance"}/>
             </WalletCardLayout>

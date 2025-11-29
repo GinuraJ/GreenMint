@@ -20,7 +20,7 @@ export default function MainLayout({ children }) {
             <div className="flex-1 grid grid-cols-5 min-h-0">
 
                 {/* Sidebar content */}
-                <div className="col-span-1 bg-green-300">
+                <div className="col-span-1 bg-green-200">
                 <SideBar/>
                 </div>
 

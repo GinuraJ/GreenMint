@@ -7,8 +7,9 @@ export default function ConvertToCredit() {
 
     const { treeId } = useParams(); 
     const [tree, setTree] = useState(null);
-    const [loading, setLoading] = useState(true); // for loading
-    const [error, setError] = useState(null);     // for errors
+    const [loading, setLoading] = useState(true); 
+    const [error, setError] = useState(null);     
+    const [userId] = useState("ginura@gmail.com");
 
     useEffect(
         () => {
@@ -57,10 +58,59 @@ export default function ConvertToCredit() {
 
     const calculationResult = ccCalculation(0.6,10,30,2);
 
-
     if (loading) return <MainLayout>Loading...</MainLayout>;
     if (error) return <MainLayout>Error: {error}</MainLayout>;
     if (!tree) return <MainLayout>No tree data found.</MainLayout>;
+
+    const handleAddToWallet = async () =>{
+        try{
+
+            // Set tree status to E which means 'Proceeed'
+            let urlUpdateTreeStatus = `http://localhost:8080/api/trees/update/${treeId}/E`
+            setLoading(true);
+            const res = await fetch(urlUpdateTreeStatus, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+            });
+            if (!res.ok) throw new Error("Failed to update tree status");
+    
+            // After changing status Get updated tree details again set visible
+            const getUpdatedTreeRes = await fetch(`http://localhost:8080/api/trees/find/id/${treeId}`);
+            const updatedTree = await getUpdatedTreeRes.json();
+            setTree(updatedTree);
+
+            // Update the user balance with new carbon credits
+            let urlUpdateUserBalance = `http://localhost:8080/api/clientBalance/${userId}/2/${calculationResult.YearlyCarbonCredit}`
+            const resBalance = await fetch(urlUpdateUserBalance, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+            });
+            if (!resBalance.ok) throw new Error("Failed to update user balance");
+
+
+            // Insert a record added carbon credit into ledger entry
+            let urlLedgerEntry = `http://localhost:8080/api/creditLedger`
+            const LedgerEntryBody = {
+                userId: userId,
+                amount: calculationResult.YearlyCarbonCredit,
+                transactionType: "D"
+            };
+            const resLedger = await fetch(urlLedgerEntry, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(LedgerEntryBody)
+            });
+
+            if (!resLedger.ok) throw new Error("Failed to enter ledger entry");
+
+        }catch(err){
+            console.error("Error updating tree:", err);
+            setError(err.message);
+        }finally{
+            setLoading(false);
+        }
+        
+    }
 
     return (
 
@@ -106,7 +156,8 @@ export default function ConvertToCredit() {
                     </div>
 
                     {tree.status === "A" ? (
-                        <button className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-200">
+                        <button className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-200"
+                        onClick={handleAddToWallet}>
                             💰 Add to wallet
                         </button>
                     ) : tree.status === "E" ? (

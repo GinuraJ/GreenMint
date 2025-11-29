@@ -70,8 +70,8 @@ export default function TreeRepository(){
                         <th className="px-4 py-2 border">Status</th>
                         <th className="px-4 py-2 border">Age</th>
                         <th className="px-4 py-2 border">Diameter</th>
+                        <th className="px-4 py-2 border">Height</th>
                         <th className="px-4 py-2 border">GeoLocation</th>
-                        <th className="px-4 py-2 border">Species</th>
                         <th className="px-4 py-2 border">Action</th>
                     </tr>
                 </thead>
