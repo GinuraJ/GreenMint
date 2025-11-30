@@ -1,71 +1,69 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { Home, TreePine,Trees,Wallet,Shuffle} from "lucide-react";
 
-export default function SideBar() {
+export default function SideBar({ setHeaderData }) {
     const navigate = useNavigate();
     const location = useLocation();
     const [active, setActive] = useState("");
 
+    const headerMap = {
+    home: {
+        icon: Home,
+        title: "Home",
+        subtitle: "Welcome to your dashboard",
+    },
+    saveTree: {
+        icon: TreePine,
+        title: "Upload Tree Image",
+        subtitle: "Add a tree to your carbon credit portfolio",
+    },
+    treeRepo: {
+        icon: Trees,
+        title: "Tree Repository",
+        subtitle: "View all saved trees",
+    },
+    wallet: {
+        icon: Wallet,
+        title: "My Wallet",
+        subtitle: "Check your carbon credits and balance",
+    },
+    orders: {
+        icon: Shuffle,
+        title: "Orders",
+        subtitle: "View your past transactions",
+    },
+    };
+
     useEffect(() => {
-        if (location.pathname.includes("/home")) setActive("home");
-        else if (location.pathname.includes("/saveTree")) setActive("saveTree");
-        else if (location.pathname.includes("/treeRepo")) setActive("treeRepo");
-        else if (location.pathname.includes("/wallet")) setActive("wallet");
-        else if (location.pathname.includes("/orders")) setActive("orders");
+    const pathKey = Object.keys(headerMap).find((key) =>
+        location.pathname.includes(key)
+    ) || "home";
+
+    setActive(pathKey);
+    setHeaderData(headerMap[pathKey]);
     }, [location.pathname]);
 
+    const handleClick = (key) => {
+    navigate(`/${key}`);
+    };
+
     return (
-        <div className="m-4">
-
-            <button
-                className={`mb-3 w-full text-left px-4 py-2 rounded-xl transition 
-                    ${active === "home" ? "bg-green-300" : "bg-white hover:bg-green-100"}`}
-                onClick={() => {
-                    setActive("home");
-                    navigate("/home");
-                }}>
-                🏠 Home
-            </button>
-
-            <button
-                className={`mb-3 w-full text-left px-4 py-2 rounded-xl transition 
-                    ${active === "saveTree" ? "bg-green-300" : "bg-white hover:bg-green-100"}`}
-                onClick={() => {
-                    setActive("saveTree");
-                    navigate("/saveTree");
-                }}>
-                🪴 Save Tree
-            </button>
-
-            <button
-                className={`mb-3 w-full text-left px-4 py-2 rounded-xl transition 
-                    ${active === "treeRepo" ? "bg-green-300" : "bg-white hover:bg-green-100"}`}
-                onClick={() => {
-                    setActive("treeRepo");
-                    navigate("/treeRepo");
-                }}>
-                🌳 Tree Repository
-            </button>
-
-            <button
-                className={`mb-3 w-full text-left px-4 py-2 rounded-xl transition 
-                    ${active === "wallet" ? "bg-green-300" : "bg-white hover:bg-green-100"}`}
-                onClick={() => {
-                    setActive("wallet");
-                    navigate("/wallet");
-                }}>
-                💳 View My Wallet
-            </button>
-
-            <button
-                className={`mb-3 w-full text-left px-4 py-2 rounded-xl transition 
-                    ${active === "orders" ? "bg-green-300" : "bg-white hover:bg-green-100"}`}
-                onClick={() => {
-                    setActive("orders");
-                    navigate("/orders");
-                }}>
-                📊 Orders
-            </button>
-        </div>
+    <div className="m-4">
+        {Object.keys(headerMap).map((key) => (
+        <button
+            key={key}
+            className={`mb-3 w-full text-left px-4 py-2 rounded-xl transition 
+            ${active === key ? "bg-green-300" : "bg-white hover:bg-green-100"}`}
+            onClick={() => handleClick(key)}
+        >
+            {key === "home" && "🏠 Home"}
+            {key === "saveTree" && "🪴 Save Tree"}
+            {key === "treeRepo" && "🌳 Tree Repository"}
+            {key === "wallet" && "💳 View My Wallet"}
+            {key === "orders" && "📊 Orders"}
+        </button>
+        ))}
+    </div>
     );
 }

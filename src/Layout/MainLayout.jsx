@@ -1,8 +1,18 @@
+import { useState } from "react";
 import SideBar from "../Component/SideBarPanel";
 import LogoArea from "../Component/LogoArea";
 import NavBar from "../Component/NavBar";
+import { TreePine } from "lucide-react";
 
 export default function MainLayout({ children }) {
+
+    const [headerData, setHeaderData] = useState({
+        icon: TreePine,
+        title: "Home",
+        subtitle: "Welcome to your dashboard"
+    });
+
+
     return (
         <div className="h-screen flex flex-col">
             {/* Header part -100px- */}
@@ -11,9 +21,15 @@ export default function MainLayout({ children }) {
                 <LogoArea/>
                 </div>
 
-                <div className="col-span-4 bg-orange-300">
-                <NavBar/>
+                <div className="col-span-4 bg-[rgb(230,255,230)] flex justify-center items-center h-[100px] ">
+                    <div className="w-[90%]">
+                        <NavBar 
+                        icon={headerData.icon}
+                        title={headerData.title}
+                        subtitle={headerData.subtitle} />
+                    </div>
                 </div>
+
             </div>
 
             {/* Bottom Part */}
@@ -21,12 +37,12 @@ export default function MainLayout({ children }) {
 
                 {/* Sidebar content */}
                 <div className="col-span-1 bg-green-200">
-                <SideBar/>
+                <SideBar setHeaderData={setHeaderData} />
                 </div>
 
                 {/* Main Content part */}
-                <div className="col-span-4 bg-yellow-300 overflow-auto min-h-0">
-                    <div className="p-4 space-y-4">
+                <div className="col-span-4 bg-[rgb(230,255,230)] overflow-auto min-h-0 w-full flex justify-center">
+                    <div className="w-[90%]">
                         {children}
                     </div>
                 </div>
