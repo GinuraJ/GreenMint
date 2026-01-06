@@ -35,6 +35,7 @@ export default function Orders() {
             formData.append("quantity",quantity );
             formData.append("executeFrom",from );
             formData.append("executeTo", to);
+            formData.append("balanceQuantity", quantity);
             formData.append("executeStatus",executeStatus );
             formData.append("userId", "test@gmail.com");
 
