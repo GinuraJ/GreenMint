@@ -2,6 +2,9 @@ import MainLayout from "../Layout/MainLayout"
 import TabButton from "../Component/TabButton"
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Filter,Leaf,Ruler,CircleCheck,ArrowLeftRight,TrendingUp, TrendingDown  } from "lucide-react";
+import CardHeader from "../Component/CardHeader";
+
 
 
 export default function TreeRepository(){
@@ -45,66 +48,106 @@ export default function TreeRepository(){
             });
     }, [activeTreeType]);
 
+    const STATUS_CONFIG = {
+        E: {
+            label: "Proceed",
+            className: "bg-red-100 text-red-800"
+        },
+        P: {
+            label: "Pending",
+            className: "bg-yellow-100 text-yellow-800"
+        },
+        A: {
+            label: "Approved",
+            className: "bg-green-100 text-green-800"
+        }
+    };
+    
     return(
         <MainLayout>
 
-            <h1>Tree Repo</h1>
+            <div className="w-full h-[2px] bg-gray-200 mt-4"></div>
             
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iure, a magnam dicta voluptates velit minus nesciunt. Consequatur beatae corrupti incidunt numquam, recusandae doloremque illo odit vel consequuntur, minus explicabo magnam.</p>
+            <p className="mt-3 mb-3">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iure, a magnam dicta voluptates velit minus nesciunt. Consequatur beatae corrupti incidunt numquam, recusandae doloremque illo odit vel consequuntur, minus explicabo magnam.</p>
 
-            <div className="flex">
-            {tabs.map((tab) => (
-                <TabButton
-                key={tab}
-                label={tab}
-                active={activeTreeType === tab}
-                onClick={() => setActiveTab(tab)}
-                />
-            ))}
+            <div className="treeRepoList p-2 bg-[rgb(255,255,255)] rounded-[20px] border-2  border-gray-200 mt-5">
+                <div className="flex items-center">
+                <div 
+                            className="">
+                            <CardHeader 
+                            icon={Filter} 
+                            title="" 
+                            iconColor="blue" 
+                            iconBgColor="bg-blue-100" />
+                        </div>
+                {tabs.map((tab) => (
+                    <TabButton
+                    key={tab}
+                    label={tab}
+                    active={activeTreeType === tab}
+                    onClick={() => setActiveTab(tab)}
+                    />
+                ))}
+                </div>
             </div>
 
-            <table className="min-w-full border border-gray-300">
-                <thead className="bg-gray-200">
-                    <tr>
-                        <th className="px-4 py-2 border">Name</th>
-                        <th className="px-4 py-2 border">Status</th>
-                        <th className="px-4 py-2 border">Age</th>
-                        <th className="px-4 py-2 border">Diameter</th>
-                        <th className="px-4 py-2 border">Height</th>
-                        <th className="px-4 py-2 border">GeoLocation</th>
-                        <th className="px-4 py-2 border">Action</th>
-                    </tr>
-                </thead>
+            
+            
+            <div className="treeRepoList bg-[rgb(255,255,255)] rounded-[20px] border-2  border-gray-200 mt-5">
 
-                <tbody>
-                    {trees.length > 0 ? (
-                        trees.map((tree) =>(
-                            <tr key={tree.treeId}>
-                                <td className="px-4 py-2 border">{tree.name}</td>
-                                <td className="px-4 py-2 border">{tree.status}</td>
-                                <td className="px-4 py-2 border">{tree.age}</td>
-                                <td className="px-4 py-2 border">{tree.diameter}</td>
-                                <td className="px-4 py-2 border">{tree.height}</td>
-                                <td className="px-4 py-2 border">{tree.geoLocation}</td>
-                                <td className="px-4 py-2 border text-center">
-                                    <button
-                                    className="bg-indigo-600 text-white px-3 py-1 rounded-md hover:bg-indigo-800"
-                                    onClick={() => navigate(`/convertToCredit/${tree.treeId}`)}
-                                    >
-                                    View
-                                    </button>
+                <table className="min-w-full">
+                    <thead className="bg-green-200 text-left">
+                        <tr>
+                            <th className="px-4 py-4 rounded-tl-[20px]">Name</th>
+                            <th className="px-4 py-4">Status</th>
+                            <th className="px-4 py-4">Age</th>
+                            <th className="px-4 py-4">Diameter</th>
+                            <th className="px-4 py-4">Height</th>
+                            <th className="px-4 py-4">GeoLocation</th>
+                            <th className="px-4 py-4 rounded-tr-[20px]">Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {trees.length > 0 ? (
+                            trees.map((tree) =>(
+                                <tr key={tree.treeId}>
+                                    <td className="px-4 py-2 border-b border-gray-200 last:border-b-0">{tree.name}</td>
+                                    <td className="px-4 py-2 border-b border-gray-200 last:border-b-0">
+                                        <span
+                                            className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${
+                                                STATUS_CONFIG[tree.status]?.className || "bg-gray-100 text-gray-700"
+                                            }`}
+                                        >
+                                            {STATUS_CONFIG[tree.status]?.label || tree.status}
+                                        </span>
+                                    </td>
+
+                                    <td className="px-4 py-2 border-b border-gray-200 last:border-b-0">{tree.age} years</td>
+                                    <td className="px-4 py-2 border-b border-gray-200 last:border-b-0">{tree.diameter}</td>
+                                    <td className="px-4 py-2 border-b border-gray-200 last:border-b-0">{tree.height}</td>
+                                    <td className="px-4 py-2 border-b border-gray-200 last:border-b-0">{tree.geoLocation}</td>
+                                    <td className="px-4 py-2 border-b border-gray-200 last:border-b-0">
+                                        <button
+                                        className="bg-[rgb(34,139,34)] rounded-[20px] p-2 hover:bg-[rgb(0,100,0)] transition-colors text-white shadow w-[90%]"
+                                        onClick={() => navigate(`/convertToCredit/${tree.treeId}`)}
+                                        >
+                                        View
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))
+                        ): (
+                            <tr>
+                                <td className="px-4 py-2 border text-center" colSpan={5}>
+                                    {loading ? "Loading..." : "No trees found"}
                                 </td>
                             </tr>
-                        ))
-                    ): (
-                        <tr>
-                            <td className="px-4 py-2 border text-center" colSpan={5}>
-                                {loading ? "Loading..." : "No trees found"}
-                            </td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
+                        )}
+                    </tbody>
+                </table>
+
+            </div>
 
         </MainLayout>
     )

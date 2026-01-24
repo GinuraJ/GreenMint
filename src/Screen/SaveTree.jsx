@@ -217,7 +217,7 @@ export default function SaveTree(){
                             icon={Camera} 
                             title="Upload Image" 
                             iconColor="green" 
-                            iconBgColor="green-100" />
+                            iconBgColor="bg-green-100" />
                             </div>
 
                         <FileDropzone
@@ -265,7 +265,7 @@ export default function SaveTree(){
                             icon={Leaf} 
                             title="Basic Information" 
                             iconColor="green" 
-                            iconBgColor="green-100" />
+                            iconBgColor="bg-green-100" />
                         </div>
 
                         <div className="grid grid-cols-2 gap-5">
@@ -330,7 +330,7 @@ export default function SaveTree(){
                             icon={Ruler} 
                             title="Physical Measurements" 
                             iconColor="blue" 
-                            iconBgColor="blue-100" />
+                            iconBgColor="bg-blue-100" />
                         </div>
 
                         <div className="grid grid-cols-2 gap-5">

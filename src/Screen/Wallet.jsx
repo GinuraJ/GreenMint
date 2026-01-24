@@ -6,7 +6,8 @@ export default function Wallet() {
     return (
         <MainLayout>
 
-            <h1>My Wallet</h1>
+            <div className="w-full h-[2px] bg-gray-200 mt-4 mb-5"></div>
+
 
             <WalletCardLayout>
                 <WalletCard icon={"💰"} lebel={"Cash Wallet"} amount={"LKR 400.00"} des={"Available Balance"}/>
