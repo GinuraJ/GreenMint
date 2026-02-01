@@ -230,19 +230,19 @@ export default function SaveTree(){
 
                         {imagePreview && (
                             <div className="mt-4 flex items-center bg-white rounded-lg shadow p-2 w-full h-32">
-                            <img
-                                src={imagePreview}
-                                alt={imageFile?.name || "Preview"}
-                                className="h-full w-32 object-cover rounded-md border"
-                            />
-                            <div className="ml-4 flex-1 overflow-hidden">
-                                <p className="text-gray-700 font-medium truncate">
-                                {imageFile?.name}
-                                </p>
-                                <p className="text-gray-400 text-sm mt-1">
-                                {imageFile?.type} • {(imageFile?.size / 1024).toFixed(2)} KB
-                                </p>
-                            </div>
+                                <img
+                                    src={imagePreview}
+                                    alt={imageFile?.name || "Preview"}
+                                    className="h-full w-32 object-cover rounded-md border"
+                                />
+                                <div className="ml-4 flex-1 overflow-hidden">
+                                    <p className="text-gray-700 font-medium truncate">
+                                    {imageFile?.name}
+                                    </p>
+                                    <p className="text-gray-400 text-sm mt-1">
+                                    {imageFile?.type} • {(imageFile?.size / 1024).toFixed(2)} KB
+                                    </p>
+                                </div>
                             </div>
                         )}
 

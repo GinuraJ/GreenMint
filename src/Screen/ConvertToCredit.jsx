@@ -117,61 +117,159 @@ export default function ConvertToCredit() {
 
         <MainLayout>
 
-            <h1>Convert to credit</h1>
-            <p>Tree ID: {treeId}</p>
+            <div className="w-full h-[2px] bg-gray-200 mt-4"></div>
 
-            <div className="grid grid-cols-2">
-                <div>
-                    <div className="space-y-2">
-                        <p><strong>Status:</strong> {tree.name}</p>
-                        <p><strong>Status:</strong> {tree.status}</p>
-                        <p><strong>Species:</strong> {tree.species}</p>
-                        <p><strong>Age:</strong> {tree.age}</p>
-                        <p><strong>Diameter:</strong> {tree.diameter}</p>
-                        <p><strong>Height:</strong> {tree.height}</p>
-                        <p><strong>GeoLocation:</strong> {tree.geoLocation}</p>
-                        <p><strong>Entered By:</strong> {tree.enterUser}</p>
-                        <p><strong>Enter Date:</strong> {tree.enterDate}</p>
+            <div className="bg-white rounded-[20px] border-2 border-gray-200 mt-5 overflow-hidden">
+    
+
+                <div className="flex items-center justify-between px-6 py-5 rounded-t-xl shadow-md" style={{ backgroundColor: "rgb(255, 249, 229)" }}>
+                    <div>
+                        <h1 className="text-2xl font-bold text-green-900">{tree.name}</h1>
+                        <p className="text-sm text-green-800 mt-1">Tree ID: {treeId}</p>
                     </div>
 
-                    {/* Handle image */}
-                    {tree.image && (
-                        <img
-                        src={tree.image}
-                        alt={tree.name}
-                        // className="w-full max-w-md h-auto rounded mb-4"
-                        className="w-64 h-64 object-contain rounded"
-                        />
-                    )}
-                </div>
-
-                <div>
-                    <div className="space-y-2">
-                        <p><strong>AGB:</strong> {calculationResult.AGB}</p>
-                        <p><strong>BioMass:</strong> {calculationResult.BioMass}</p>
-                        <p><strong>DryWeight:</strong> {calculationResult.DryWeight}</p>
-                        <p><strong>CarbonMass:</strong> {calculationResult.CarbonMass}</p>
-                        <p><strong>CO2:</strong> {calculationResult.CO2}</p>
-                        <p><strong>TotalCarbonCredit:</strong> {calculationResult.TotalCarbonCredit}</p>
-                        <p><strong>YearlyCarbonCredit:</strong> {calculationResult.YearlyCarbonCredit}</p>
-                    </div>
-
-                    {tree.status === "A" ? (
-                        <button className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-200"
-                        onClick={handleAddToWallet}>
-                            💰 Add to wallet
+                    <div>
+                        {tree.status === "A" ? (
+                        <button 
+                            className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-200"
+                            onClick={handleAddToWallet}
+                        >
+                            💰 Add to Wallet
                         </button>
-                    ) : tree.status === "E" ? (
-                        <p className="bg-gray-200 text-gray-600 font-semibold py-2 px-4 rounded-lg shadow-inner cursor-not-allowed inline-block">
-                            ✅ Already added
-                        </p>
-                    ) : (
-                        <p className="bg-yellow-100 text-yellow-700 font-semibold py-2 px-4 rounded-lg shadow-sm inline-block">
+                        ) : tree.status === "E" ? (
+                        <button 
+                            className="bg-gray-400 text-white font-semibold py-2 px-4 rounded-lg cursor-not-allowed"
+                            disabled
+                        >
+                            ✅ Already Added
+                        </button>
+                        ) : (
+                        <button 
+                            className="bg-yellow-400 text-white font-semibold py-2 px-4 rounded-lg cursor-not-allowed"
+                            disabled
+                        >
                             ⏳ Pending Approval
-                        </p>
-                    )}
-
+                        </button>
+                        )}
+                    </div>
                 </div>
+
+
+                {/* Content row (taller) */}
+                <div className="p-5 min-h-[300px] grid grid-cols-[1fr_2fr] gap-4">
+
+                    <div className="rounded-xl">
+                        {tree.image ? (
+                        <img
+                            src={tree.image}
+                            alt={tree.name}
+                            className="w-full h-auto object-contain rounded-xl"
+                        />
+                        ) : (
+                        <p className="text-gray-400 text-sm">No image available</p>
+                        )}
+                        <div className="mt-4 w-full bg-white rounded-lg shadow p-3 text-sm text-gray-700">
+                            <p><strong>Entered By:</strong> {tree.enterUser}</p>
+                            <p className="mt-3"><strong>Enter Date:</strong> {tree.enterDate}</p>
+                        </div>
+                    </div>
+
+                    <div className="">
+                        <div className="mb-4">
+                            <h2 className="text-xl font-semibold text-green-700">
+                                Basic Information
+                            </h2>
+                            <div className="w-[100%] h-[3px] bg-green-500 mt-2 rounded"></div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4 mt-4">
+                            <div className="space-y-3">
+                                <div className="bg-white rounded-lg shadow p-4">
+                                <p className="text-sm text-gray-500">Status</p>
+                                <p className="text-lg font-semibold">{tree.status}</p>
+                                </div>
+                                <div className="bg-white rounded-lg shadow p-4">
+                                <p className="text-sm text-gray-500">Species</p>
+                                <p className="text-lg font-semibold">{tree.species}</p>
+                                </div>
+                                <div className="bg-white rounded-lg shadow p-4">
+                                <p className="text-sm text-gray-500">Age</p>
+                                <p className="text-lg font-semibold">{tree.age}</p>
+                                </div>
+                            </div>
+
+                            <div className="space-y-3">
+                                <div className="bg-white rounded-lg shadow p-4">
+                                <p className="text-sm text-gray-500">Diameter</p>
+                                <p className="text-lg font-semibold">{tree.diameter}</p>
+                                </div>
+                                <div className="bg-white rounded-lg shadow p-4">
+                                <p className="text-sm text-gray-500">Height</p>
+                                <p className="text-lg font-semibold">{tree.height}</p>
+                                </div>
+                                <div className="bg-white rounded-lg shadow p-4">
+                                <p className="text-sm text-gray-500">GeoLocation</p>
+                                <p className="text-lg font-semibold">{tree.geoLocation}</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div className="mb-4 mt-5">
+                            <h2 className="text-xl font-semibold text-green-700">
+                                Carbon Metrics
+                            </h2>
+                            <div className="w-[100%] h-[3px] bg-green-500 mt-2 rounded"></div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4 mt-4">
+                            {/* Row 1 */}
+                            <div className="bg-white rounded-lg shadow p-4">
+                                <p className="text-sm text-gray-500">AGB</p>
+                                <p className="text-lg font-semibold">{calculationResult.AGB}</p>
+                            </div>
+                            <div className="bg-white rounded-lg shadow p-4">
+                                <p className="text-sm text-gray-500">BioMass</p>
+                                <p className="text-lg font-semibold">{calculationResult.BioMass}</p>
+                            </div>
+
+                            {/* Row 2 */}
+                            <div className="bg-white rounded-lg shadow p-4">
+                                <p className="text-sm text-gray-500">DryWeight</p>
+                                <p className="text-lg font-semibold">{calculationResult.DryWeight}</p>
+                            </div>
+                            <div className="bg-white rounded-lg shadow p-4">
+                                <p className="text-sm text-gray-500">CarbonMass</p>
+                                <p className="text-lg font-semibold">{calculationResult.CarbonMass}</p>
+                            </div>
+
+                            {/* Row 3 */}
+                            <div className="bg-white rounded-lg shadow p-4">
+                                <p className="text-sm text-gray-500">CO2</p>
+                                <p className="text-lg font-semibold">{calculationResult.CO2}</p>
+                            </div>
+                            <div className="bg-white rounded-lg shadow p-4">
+                                <p className="text-sm text-gray-500">Total Carbon Credit</p>
+                                <p className="text-lg font-semibold">{calculationResult.TotalCarbonCredit}</p>
+                            </div>
+
+                            {/* Row 4: YearlyCarbonCredit bigger card spanning full width */}
+                            <div className="bg-yellow-100 rounded-lg shadow p-6 col-span-2 flex flex-col items-center justify-center">
+                                <p className="text-sm text-green-700 font-medium">Yearly Carbon Credit</p>
+                                <p className="text-2xl font-bold text-green-900">{calculationResult.YearlyCarbonCredit}</p>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div className="p-5">
             </div>
 
         </MainLayout>
