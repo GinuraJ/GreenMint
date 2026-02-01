@@ -4,7 +4,7 @@ import { FileDropzone } from "../Component/FileDropzone";
 import CardHeader from "../Component/CardHeader";
 import { useRef } from "react";
 import { Camera,Leaf,Ruler,CircleCheck,RulerDimensionLine } from "lucide-react";
-
+import { API_BASE_URL } from "../config"
 
 export default function SaveTree(){
 
@@ -61,7 +61,7 @@ export default function SaveTree(){
                 console.log(key, value);
             }
 
-            const response = await fetch("http://localhost:8080/api/trees/addTree", {
+            const response = await fetch(`${API_BASE_URL}/api/trees/addTree`, {
                 method: "POST",
                 body: formData
             });

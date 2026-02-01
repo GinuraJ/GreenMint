@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Filter,Leaf,Ruler,CircleCheck,ArrowLeftRight,TrendingUp, TrendingDown  } from "lucide-react";
 import CardHeader from "../Component/CardHeader";
 
-
+import {API_BASE_URL} from "../config"
 
 export default function TreeRepository(){
 
@@ -20,13 +20,13 @@ export default function TreeRepository(){
         let url = "";
 
         if (activeTreeType === "All") {
-            url = "http://localhost:8080/api/trees";
+            url = `${API_BASE_URL}/api/trees`;
         } else if (activeTreeType === "Pending"){
-            url = "http://localhost:8080/api/trees/find/P";
+            url = `${API_BASE_URL}/api/trees/find/P`;
         } else if(activeTreeType === "Proceed"){
-            url = "http://localhost:8080/api/trees/find/E";
+            url = `${API_BASE_URL}/api/trees/find/E`;
         } else{
-            url = "http://localhost:8080/api/trees/find/A";
+            url = `${API_BASE_URL}/api/trees/find/A`;
         }
 
         setLoading(true);

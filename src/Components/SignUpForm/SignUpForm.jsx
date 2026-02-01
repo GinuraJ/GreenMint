@@ -5,6 +5,9 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast, { Toaster } from 'react-hot-toast';
 
+import { API_BASE_URL } from "../../config";
+
+
 export const SignUpForm = () =>{
 
     const navigate = useNavigate();
@@ -28,7 +31,7 @@ export const SignUpForm = () =>{
         if(formData.password === formData.confirmPassword){
             try{
                 const response = await axios.post(
-                    "http://localhost:8080/api/users",
+                    `${API_BASE_URL}/api/users`,
                     {
                         firstName: formData.firstName,
                         secondName: formData.lastName,

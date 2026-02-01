@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
-
+import { API_BASE_URL } from "../../config";
 
 export const LoginForm = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -20,7 +20,7 @@ export const LoginForm = () => {
     console.log("Form Submitted:", formData);
 
     try{
-      const response = await axios.get(`http://localhost:8080/api/users/email/${formData.email}`);
+      const response = await axios.get(`${API_BASE_URL}/api/users/email/${formData.email}`);
 
       console.log("response Data : "+ response.data);
       const user = response.data.password;

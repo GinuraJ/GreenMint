@@ -12,12 +12,11 @@ export default function MainLayout({ children }) {
         subtitle: "Welcome to your dashboard"
     });
 
-
     return (
         <div className="h-screen flex flex-col">
             {/* Header part -100px- */}
-            <div className="h-[90px] bg-blue-500 grid grid-cols-5 min-h-0">
-                <div className="col-span-1 bg-red-300">
+            <div className="h-[90px] bg-white-500 grid grid-cols-5 min-h-0">
+                <div className="col-span-1 bg-white-500">
                 <LogoArea/>
                 </div>
 
@@ -36,7 +35,7 @@ export default function MainLayout({ children }) {
             <div className="flex-1 grid grid-cols-5 min-h-0">
 
                 {/* Sidebar content */}
-                <div className="col-span-1 bg-green-200">
+                <div className="col-span-1 bg-white-500">
                 <SideBar setHeaderData={setHeaderData} />
                 </div>
 

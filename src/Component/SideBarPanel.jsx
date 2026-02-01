@@ -54,7 +54,7 @@ export default function SideBar({ setHeaderData }) {
         <button
             key={key}
             className={`mb-3 w-full text-left px-4 py-2 rounded-xl transition 
-            ${active === key ? "bg-green-300" : "bg-white hover:bg-green-100"}`}
+            ${active === key ? "bg-[rgb(34,139,34)] text-white" : "bg-white hover:bg-green-100"}`}
             onClick={() => handleClick(key)}
         >
             {key === "home" && "🏠 Home"}
@@ -62,6 +62,7 @@ export default function SideBar({ setHeaderData }) {
             {key === "treeRepo" && "🌳 Tree Repository"}
             {key === "wallet" && "💳 View My Wallet"}
             {key === "orders" && "📊 Orders"}
+            
         </button>
         ))}
     </div>

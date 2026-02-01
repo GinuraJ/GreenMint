@@ -1,8 +1,9 @@
 import MainLayout from "../Layout/MainLayout";
 import { useState } from "react";
 
-import { Camera,Leaf,Ruler,CircleCheck,ArrowLeftRight,TrendingUp, TrendingDown  } from "lucide-react";
+import {CircleCheck,ArrowLeftRight  } from "lucide-react";
 import CardHeader from "../Component/CardHeader";
+import {API_BASE_URL} from "../config"
 
 
 export default function Orders() {
@@ -48,7 +49,7 @@ export default function Orders() {
                 console.log(key, value);
             }
             
-            const response = await fetch("http://localhost:8080/api/order", {
+            const response = await fetch(`${API_BASE_URL}/api/order`, {
                 method: "POST",
                 body: formData
             });
@@ -113,10 +114,10 @@ export default function Orders() {
                             <button
                             type="button"
                             onClick={() => setBuySellFlag("B")}
-                            className={`px-4 py-2 rounded-t-lg border-b-2 transition ${
+                            className={`px-4 py-2 rounded-t-lg border-b-2 transition bg-gray-100 ${
                                 buySellFlag === "B"
                                 ? "border-green-500 bg-green-100 text-green-700"
-                                : "border-transparent hover:bg-gray-100"
+                                : "border-transparent hover:bg-gray-200"
                             }`}
                             >Buy Order
                             </button>
@@ -124,10 +125,10 @@ export default function Orders() {
                             <button
                             type="button"
                             onClick={() => setBuySellFlag("S")}
-                            className={`px-4 py-2 rounded-t-lg border-b-2 transition ${
+                            className={`px-4 py-2 rounded-t-lg border-b-2 transition transition bg-gray-100 ${
                                 buySellFlag === "S"
-                                ? "border-red-500 bg-red-100 text-red-700"
-                                : "border-transparent hover:bg-gray-100"
+                                ? "border-green-500 bg-green-100 text-green-700"
+                                : "border-transparent hover:bg-gray-200"
                             }`}
                             >Sell Order
                             </button>

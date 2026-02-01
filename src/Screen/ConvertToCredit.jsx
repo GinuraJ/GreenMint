@@ -1,6 +1,7 @@
 import MainLayout from "../Layout/MainLayout";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import {API_BASE_URL} from "../config"
 
 
 export default function ConvertToCredit() {
@@ -13,7 +14,7 @@ export default function ConvertToCredit() {
 
     useEffect(
         () => {
-            let url = `http://localhost:8080/api/trees/find/id/${treeId}`;
+            let url = `${API_BASE_URL}/api/trees/find/id/${treeId}`;
 
             setLoading(true);
 
