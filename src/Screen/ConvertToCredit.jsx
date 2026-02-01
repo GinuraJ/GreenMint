@@ -125,7 +125,7 @@ export default function ConvertToCredit() {
                 <div className="flex items-center justify-between px-6 py-5 rounded-t-xl shadow-md" style={{ backgroundColor: "rgb(255, 249, 229)" }}>
                     <div>
                         <h1 className="text-2xl font-bold text-green-900">{tree.name}</h1>
-                        <p className="text-sm text-green-800 mt-1">Tree ID: {treeId}</p>
+                        <p className="text-sm text-green-800 mt-1">ID: {treeId}</p>
                     </div>
 
                     <div>
