@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/GreenMint/static/css/main.11318bc9.css",
-    "main.js": "/GreenMint/static/js/main.8dbcee90.js",
+    "main.css": "/GreenMint/static/css/main.3e6bd515.css",
+    "main.js": "/GreenMint/static/js/main.281f614c.js",
     "static/js/453.ed7c0635.chunk.js": "/GreenMint/static/js/453.ed7c0635.chunk.js",
     "index.html": "/GreenMint/index.html",
-    "main.11318bc9.css.map": "/GreenMint/static/css/main.11318bc9.css.map",
-    "main.8dbcee90.js.map": "/GreenMint/static/js/main.8dbcee90.js.map",
+    "main.3e6bd515.css.map": "/GreenMint/static/css/main.3e6bd515.css.map",
+    "main.281f614c.js.map": "/GreenMint/static/js/main.281f614c.js.map",
     "453.ed7c0635.chunk.js.map": "/GreenMint/static/js/453.ed7c0635.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.11318bc9.css",
-    "static/js/main.8dbcee90.js"
+    "static/css/main.3e6bd515.css",
+    "static/js/main.281f614c.js"
   ]
 }
