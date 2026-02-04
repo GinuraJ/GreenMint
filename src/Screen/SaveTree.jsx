@@ -20,6 +20,9 @@ export default function SaveTree(){
     const [treeActualHeight, setTreeActualHeight] = useState("");
     const [isHeightLocked, setIsHeightLocked] = useState(false);
 
+    const [isDetecting, setIsDetecting] = useState(false);
+    const [isSaving, setIsSaving] = useState(false);
+
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -37,6 +40,10 @@ export default function SaveTree(){
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (isSaving) return;
+
+        setIsSaving(true);
 
         try {
             const formData = new FormData();
@@ -88,7 +95,9 @@ export default function SaveTree(){
         } catch (error) {
             console.error("Error saving tree:", error);
             alert("Error"+ error);
-        }
+        }finally {
+            setIsSaving(false); 
+          }
     };
 
     const handleProceed = async () => {
@@ -96,6 +105,8 @@ export default function SaveTree(){
             alert("Please select an image first");
             return;
         }
+
+        setIsDetecting(true);
     
         try {
             const formData = new FormData();
@@ -103,15 +114,15 @@ export default function SaveTree(){
     
             console.log("Sending image to YOLO API...");
     
-            // const response = await fetch("http://64.227.128.213:8000/detect", {
-            //     method: "POST",
-            //     body: formData
-            // });
-
-            const response = await fetch("/detect", {   // <-- relative path
+            const response = await fetch("http://64.227.128.213:8000/detect", {
                 method: "POST",
                 body: formData
             });
+
+            // const response = await fetch("/detect", {   // <-- relative path
+            //     method: "POST",
+            //     body: formData
+            // });
             
     
             console.log("Response:", response);
@@ -173,6 +184,8 @@ export default function SaveTree(){
         } catch (error) {
             console.error("Error calling YOLO API:", error);
             alert("API Error: " + error);
+        }finally {
+            setIsDetecting(false);
         }
     };
 
@@ -253,14 +266,57 @@ export default function SaveTree(){
                         )}
 
 
-                        <button
+                        {/* <button
                             type="button"
                             onClick={handleProceed}
                             className="mt-3 w-[50%] p-1 bg-[rgb(34,139,34)] rounded-[20px] text-white shadow hover:bg-[rgb(0,100,0)] transition-colors flex items-center justify-center"
                         >
                             <RulerDimensionLine className="w-5 h-5 mr-3" />
                             <span>Find</span>
+                        </button> */}
+
+                        <button
+                            type="button"
+                            onClick={handleProceed}
+                            disabled={isDetecting}
+                            className={`mt-3 w-[100%] p-1 rounded-[20px] text-white shadow transition-colors
+                                flex items-center justify-center
+                                ${isDetecting 
+                                    ? "bg-gray-400 cursor-not-allowed" 
+                                    : "bg-[rgb(34,139,34)] hover:bg-[rgb(0,100,0)]"}
+                            `}
+                        >
+                            {isDetecting ? (
+                                <>
+                                    <svg
+                                        className="animate-spin h-5 w-5 mr-2 text-white"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <circle
+                                            className="opacity-25"
+                                            cx="12"
+                                            cy="12"
+                                            r="10"
+                                            stroke="currentColor"
+                                            strokeWidth="4"
+                                            fill="none"
+                                        />
+                                        <path
+                                            className="opacity-75"
+                                            fill="currentColor"
+                                            d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                                        />
+                                    </svg>
+                                    Detecting…
+                                </>
+                            ) : (
+                                <>
+                                    <RulerDimensionLine className="w-5 h-5 mr-3" />
+                                    <span>Find Height</span>
+                                </>
+                            )}
                         </button>
+
 
                     </div>
                     {/* Basic imaformation area */}
@@ -455,13 +511,51 @@ export default function SaveTree(){
                             </div>
 
                             <div className="flex justify-start">
-                                <button
+                                {/* <button
                                     type="submit"
                                     className="w-[95%] p-2 bg-[rgb(34,139,34)] rounded-[20px] text-white shadow hover:bg-[rgb(0,100,0)] transition-colors flex items-center justify-center gap-2"
                                 >
                                     <CircleCheck className="w-5 h-5" />
                                     <span>Save Tree Data</span>
-                                </button>
+                                </button> */}
+                                <button
+                                    type="submit"
+                                    disabled={isSaving}
+                                    className={`w-[95%] p-2 rounded-[20px] text-white shadow flex items-center justify-center gap-2 transition-colors
+                                        ${isSaving ? "bg-gray-400 cursor-not-allowed" : "bg-[rgb(34,139,34)] hover:bg-[rgb(0,100,0)]"}
+                                    `}
+                                    >
+                                    {isSaving ? (
+                                        <>
+                                        <svg
+                                            className="animate-spin h-5 w-5 text-white"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <circle
+                                            className="opacity-25"
+                                            cx="12"
+                                            cy="12"
+                                            r="10"
+                                            stroke="currentColor"
+                                            strokeWidth="4"
+                                            fill="none"
+                                            />
+                                            <path
+                                            className="opacity-75"
+                                            fill="currentColor"
+                                            d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                                            />
+                                        </svg>
+                                        Saving…
+                                        </>
+                                    ) : (
+                                        <>
+                                        <CircleCheck className="w-5 h-5" />
+                                        <span>Save Tree Data</span>
+                                        </>
+                                    )}
+                                    </button>
+
                             </div>
                         </div>
 
