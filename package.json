@@ -47,6 +47,7 @@
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.17"
   },
-  "homepage": "https://GinuraJ.github.io/GreenMint"
+  "homepage": "https://GinuraJ.github.io/GreenMint",
+  "proxy": "http://64.227.128.213:8000"
 
 }

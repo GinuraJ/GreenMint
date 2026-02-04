@@ -103,10 +103,16 @@ export default function SaveTree(){
     
             console.log("Sending image to YOLO API...");
     
-            const response = await fetch("http://64.227.128.213:8000/detect", {
+            // const response = await fetch("http://64.227.128.213:8000/detect", {
+            //     method: "POST",
+            //     body: formData
+            // });
+
+            const response = await fetch("/detect", {   // <-- relative path
                 method: "POST",
                 body: formData
             });
+            
     
             console.log("Response:", response);
 
